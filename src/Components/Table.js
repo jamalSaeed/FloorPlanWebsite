@@ -82,7 +82,7 @@ setCurrData(foundElement)
     },
     {
       field: 'floorDetails',
-      headerName: 'location',
+      headerName: 'Location(s)',
       width: 150,
       editable: true,
       renderCell: (params) => {

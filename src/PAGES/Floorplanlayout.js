@@ -4,14 +4,16 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Select from "react-select";
 import { Button } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import logoImg from "../../src/Images/logo33-removebg-preview.png";
+import logoImg from "../../src/Images/logo.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import Nav from "../Components/Nav/Nav";
+
+import AddIcon from "@mui/icons-material/Add";
+import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 
 
 
@@ -32,17 +34,12 @@ const Floorplanlayout = () => {
   const [address, setAddress] = useState("");
   const [remarks, setRemarks] = useState("");
 
-
-  // const [description, setDescription] = useState("");
   const [descriptionArr, setDescriptionArr] = useState([""]);
-
-
 
   const [location, setLocation] = useState("");
   const [locationArr, setLocationArr] = useState([]);
 
   const [mainImageFile, setMainImageFile] = useState();
-
 
   const [imgFiles, setImgFiles] = useState([]);
   // const [imgArr, setImgArr] = useState([]);
@@ -62,10 +59,7 @@ const Floorplanlayout = () => {
     border: "2px solid #1f4879",
     textTransform: "none",
   };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("Form submitted with data:", { name, date, address, remarks });
-  // };
+
 
   const handleMainImageChange = (e) => {
     setMainImageFile(e.target.files[0]);
@@ -90,48 +84,6 @@ const Floorplanlayout = () => {
   };
 
 
-
-
-  // const handlePDFExport = () => {
-  //   // Create a new jsPDF instance
-  //   const doc = new jsPDF();
-
-  //   // Define the data you want to include in the PDF
-  //   const data = [
-  //     ["Name", name],
-  //     ["Date", date.toDateString()],
-  //     ["Address", address],
-  //     ["Remarks", remarks],
-  //   ];
-
-  //   // Create a table to display the data
-  //   doc.autoTable({
-  //     head: [["Field", "Value"]],
-  //     body: data,
-  //   });
-
-  //   // Add the main image to the PDF (assuming mainImageFile is a valid image file)
-  //   if (mainImageFile) {
-  //     doc.addImage(mainImageFile, "JPEG", 10, 80, 90, 60);
-  //   }
-
-  //   // Iterate through descriptions and locations and add them to the table
-  //   for (let i = 0; i < descriptionArr.length; i++) {
-  //     data.push([`Description ${i + 1}`, descriptionArr[i]]);
-  //     data.push(["Location", locationArr[i]]);
-  //   }
-
-  //   // Add the data table to the PDF
-  //   doc.autoTable({
-  //     head: [["Field", "Value"]],
-  //     body: data,
-  //     startY: 150,
-  //   });
-
-  //   // Save or display the PDF
-  //   doc.save("floorplan.pdf");
-  // };
-
   const handleSubmit = async (e) => {
 
     e.preventDefault()
@@ -150,8 +102,6 @@ const Floorplanlayout = () => {
       formData.append("mainImage", "");
     }
 
-
-
     for (const selectedOption of locationArr) {
       formData.append("location", selectedOption);
     }
@@ -159,7 +109,6 @@ const Floorplanlayout = () => {
     for (const desc of filteredDescriptionArr) {
       formData.append("description", desc);
     }
-
 
     for (const img of imgFiles) {
       if (img) {
@@ -179,7 +128,6 @@ const Floorplanlayout = () => {
       }
     }
 
-    // handlePDFExport()
 
     try {
       const response = await axios.post("http://54.226.145.28:3000/api/v1/floorplan", formData, {
@@ -199,7 +147,7 @@ const Floorplanlayout = () => {
 
   return (
     <>
-    <Nav />
+      <Nav />
       <Box style={{ marginBottom: "20px", padding: "0px" }}>
 
         <Box>
@@ -343,11 +291,16 @@ const Floorplanlayout = () => {
                   Main Floor Image
                 </label>
                 <Box style={{ display: "flex", justifyContent: "space-around", alignItems: "center" }}>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleMainImageChange}
-                  />
+                  <label htmlFor="main-image-input" className="upload-button">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      id="main-image-input"
+                      onChange={handleMainImageChange}
+                      style={{ display: "none" }}
+                    />
+                    <PhotoCameraIcon fontSize="large" color="primary" />
+                  </label>
                   {mainImageFile && (
                     <div>
                       <img style={{ height: "100px", width: "100px" }} src={URL.createObjectURL(mainImageFile)} alt="Selected" />
@@ -355,7 +308,7 @@ const Floorplanlayout = () => {
                   )}
                 </Box>
               </Box>
-              <Box>
+              {/* <Box>
                 <div>
                   <label className="locTxt">Location</label>
                 </div>
@@ -367,7 +320,7 @@ const Floorplanlayout = () => {
                     // setLocationArr((locationArr) => [...locationArr, selectedOptions.value]);
                   }}
                 />
-              </Box>
+              </Box> */}
               {count?.map((item, index) => (
                 <Destription
                   key={index}
@@ -376,13 +329,22 @@ const Floorplanlayout = () => {
                   change={handleImgChange}
                   descChange={(e) => handleDescriptionChange(e, index)} // Pass the index
                   description={descriptionArr[index]} // Use the description at the specific index
-                  index={index} />
+                  index={index}
+                  imgFiles={imgFiles}
+                  locationOptions={options}
+                  updateLocationArr={(selectedLocation) => {
+                    const updatedLocationArr = [...locationArr];
+                    updatedLocationArr[index] = selectedLocation.value;
+                    setLocationArr(updatedLocationArr);
+                  }}
+
+                />
               ))}
               <Box className="btnFlex">
                 <Button
                   onClick={() => {
                     setCount([...count, 1]);
-    setLocationArr([...locationArr, location.value]);
+                    setLocationArr([...locationArr, location.value]);
 
                     // setDescriptionArr([...descriptionArr, description]);
                   }}
@@ -411,48 +373,69 @@ const Floorplanlayout = () => {
 };
 
 const Destription = (props) => {
+
+  const [selectedLocation, setSelectedLocation] = useState(props.locationOptions[0]); // Initialize with the first location option
   return (
+
     <Box className="Flexdiscrip">
-      <input
-        type="file"
-        accept="image/*"
-        onChange={(e) => props.change(e, props.index)} // Pass the index
-      />
-      {props.print &&
-
-      <Box style={{backgroundColor:"#1f4879", color:"white", borderRadius:"5px", padding:"3px", minWidth:"70px", textAlign:"center"}}>
-
-      <p>{props.print}</p>
+      <label htmlFor={`image-input-${props.index}`} className="upload-button-small">
+        <input
+          type="file"
+          accept="image/*"
+          id={`image-input-${props.index}`}
+          onChange={(e) => props.change(e, props.index)}
+          style={{ display: "none" }}
+        />
+        <PhotoCameraIcon fontSize="small" color="primary" />
+      </label>
+      <Box className="location-label">
+        <div>
+          <label className="location-label">
+            Location
+          </label>
+          <Select
+            options={props.locationOptions}
+            value={selectedLocation}
+            onChange={(selectedOption) => {
+              setSelectedLocation(selectedOption);
+              props.updateLocationArr(selectedOption); // Update locationArr in the parent
+            }}
+          />
+        </div>
       </Box>
+
+      {props.imgFiles[props.index] && (
+        <div>
+          <img
+            style={{ height: "100px", width: "100px" }}
+            src={URL.createObjectURL(props.imgFiles[props.index])}
+            alt="Selected"
+          />
+        </div>
+      )
       }
 
       <Box>
         <Box className="Descriptionflex">
           <Box>
-            <label
-              style={{
-                padding: "0px",
-                color: "#1f4879",
-                fontSize: "18px",
-              }}
-            >
+            <label className="description-label">
               Description
             </label>
             <TextField
               placeholder="Write Description"
               multiline
               rows={2}
-              className="TextfieldStyle"
-              id={`outlined-basic-${props.index}`} // Use an identifier that includes the index
+              className="TextfieldStyle-small"
+              id={`outlined-basic-${props.index}`}
               variant="outlined"
               value={props.description}
-              onChange={(e) => props.descChange(e, props.index)} // Pass the index
+              onChange={(e) => props.descChange(e, props.index)}
             />
           </Box>
         </Box>
       </Box>
     </Box>
-  );
+  )
 };
 
 export default Floorplanlayout;
