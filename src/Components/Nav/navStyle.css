@@ -1,0 +1,42 @@
+/* NavigationHeader.css */
+
+.navigation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff; /* Change this to your desired background color */
+    color: #333; /* Change this to your desired text color */
+  }
+  
+  .logo img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .nav-options {
+    display: flex;
+  }
+  
+  .nav-options a {
+    text-decoration: none;
+    color: #000; /* Change this to your desired link color */
+    margin-right: 20px;
+  }
+  
+  /* Media query for responsive design */
+  @media (max-width: 768px) {
+    .navigation-header {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .nav-options {
+      margin-top: 10px;
+    }
+  
+    .nav-options a {
+      margin-right: 0;
+    }
+  }
+  
