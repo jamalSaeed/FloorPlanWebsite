@@ -9,6 +9,8 @@ import {
     Image,
 } from "@react-pdf/renderer";
 
+import logo from "../Images/logo.png"
+
 const styles = StyleSheet.create({
     page: {
         color: "black",
@@ -18,9 +20,53 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: 30,
     },
+
+    tableContainer: {
+        display: "flex",
+        flexDirection: "column",
+        width: "80%",
+        // margin: 10,
+        // padding: 7
+    },
+    tableRow: {
+        borderTop: "1px solid #000", // Add a border to the table rows
+        borderRight: "1px solid #000", // Add a border to the table rows
+        borderLeft: "1px solid #000", // Add a border to the table rows
+        borderBottom: "1px solid #000", // Add a border to the table rows
+        // borderRadius: "1px",
+        flexDirection: "row",
+        margin: "0px",
+    },
+    tableCell: {
+        width: '27%',
+        height: "100%",
+        paddingTop: 7,
+        paddingLeft: 2,
+        // marginBottom: 5,
+        fontSize: 12,
+        // height: "50px",
+        textAlign: "center",
+        borderRight: "1px solid #000", // Add a right border to the table cells
+    },
+    tableCellUpper: {
+        flex: 1,
+        width: "25%",
+        padding: 7,
+        // marginBottom: 5,
+        fontSize: 12,
+        borderRight: "1px solid #000", // Add a right border to the table cells
+
+    },
+    headerCell: {
+        backgroundColor: "#ccc",
+        fontWeight: "bold",
+
+    },
     image: {
-        width: 500,
+        marginTop: "20px",
+        width: 426,
         height: 300,
+        borderRadius: "5px"
     },
     section: {
         margin: 10,
@@ -29,42 +75,6 @@ const styles = StyleSheet.create({
     viewer: {
         width: window.innerWidth,
         height: window.innerHeight,
-    },
-    tableContainer: {
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-        margin: 10,
-        padding: 7
-    },
-    tableRow: {
-        border: "1px solid #000",
-        borderRadius: "5px",
-        flexDirection: "row",
-        margin: "0px",
-    },
-    tableCell: {
-        width: "24%",
-        padding: 7,
-        marginBottom: 5,
-        fontSize: 12,
-        height: "50px",
-
-        textAlign: "justify"
-    },
-    tableCellUpper: {
-
-       flex:1,
-        width: "25%",
-        padding: 7,
-        marginBottom: 5,
-        fontSize: 12,
-    },
-
-    headerCell: {
-        backgroundColor: "#ccc",
-        fontWeight: "bold",
-        padding: 7,
     },
 
     text: {
@@ -77,30 +87,43 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
         marginBottom: 10,
+        textDecoration: "underline",
     },
     innerImage: {
         height: "100px",
         width: "100px",
-        borderRadius: "10px"
+        borderRadius: "2px",
+        margin: "8px",
     },
     pageBreak: {
         flexBasis: "100%",
         height: 0,
     },
-    breakable: { width: '100%', height: 400, },
+    address: {
+        fontSize: 10,
+        fontWeight: "bold",
+
+    },
 });
 
 function Pdf(props) {
     console.log(props)
-
-
-
-
     return (
         <PDFViewer style={styles.viewer}>
             <Document>
                 <Page size="A4" style={styles.page}>
-                    <Text style={styles.header}>PDF Report</Text>
+                    <View style={{ width: "90%", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-around" }} >
+                        <Image style={{ height: "100px", width: "120px" }} src={logo} />
+                        <Text style={styles.header}>Defects Report</Text>
+                        <View style={styles.address}>
+                            <Text>BUDDYFECTS PTE. LTD.</Text>
+                            <Text>UEN: 202318717Z</Text>
+                            <Text>1003 BUKIT MERAH</Text>
+                            <Text>CENTRAL</Text>
+                            <Text>#07-43</Text>
+                            <Text>SINGAPORE (159836)</Text>
+                        </View>
+                    </View>
                     <View style={styles.tableContainer}>
                         <View style={[styles.tableRow, styles.headerCell]}>
                             <Text style={styles.tableCellUpper}>Name</Text>
@@ -122,7 +145,7 @@ function Pdf(props) {
                                 : ""}</Text>
                         </View>
                     </View>
-                    <Image style={styles.image} src={`http://54.226.145.28:3000/public/image/users/${props.data?.mainImage}`} />
+                    <Image style={styles.image} src={`http://127.0.0.1:3000/public/image/users/${props.data?.mainImage}`} />
                 </Page>
 
                 {/* Start a new page */}
@@ -142,15 +165,19 @@ function Pdf(props) {
                                 <Text style={styles.tableCell}>{finding?.location}</Text>
 
 
-                                <Text style={styles.tableCellUpper}>
+                                <Text style={styles.tableCell}>
                                     {finding?.description}
                                 </Text>
+                                <View style={{ display: "flex", flexDirection: "column", gap: "10px", justifyContent: "center", alignItems: "center", width: "auto" }}>
+                                    {finding?.img?.map((item, index) => (
 
-                                <View>
-                                    <Image
-                                        style={[styles.tableCell, styles.innerImage]}
-                                        src={`http://54.226.145.28:3000/public/image/users/${finding?.img}`}
-                                    />
+                                        <Image
+                                            style={[styles.innerImage]}
+                                            src={`http://127.0.0.1:3000/public/image/users/${item}`}
+                                        />
+                                    ))
+
+                                    }
                                 </View>
 
                             </View>
