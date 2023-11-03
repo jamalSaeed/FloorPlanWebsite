@@ -25,6 +25,7 @@ import * as Yup from 'yup';
 
 const Floorplanlayout = () => {
   const [options, setOptions] = useState([
+
     { value: "Main door", label: "Main door" },
     { value: "Living Room", label: "Living Room" },
     { value: "Bed room", label: "Bed room" },
@@ -508,6 +509,7 @@ const Destription = (props) => {
             Location
           </label>
           <Select
+          
             options={props.locationOptions}
             value={selectedLocation}
             onChange={(selectedOption) => {
