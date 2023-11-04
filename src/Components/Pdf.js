@@ -145,7 +145,7 @@ function Pdf(props) {
                                 : ""}</Text>
                         </View>
                     </View>
-                    <Image style={styles.image} src={`http://54.226.145.28:3000/public/image/users/${props.data?.mainImage}`} />
+                    <Image style={styles.image} src={`http://3.86.47.176:3000/public/image/users/${props.data?.mainImage}`} />
                 </Page>
 
                 {/* Start a new page */}
@@ -173,7 +173,7 @@ function Pdf(props) {
 
                                         <Image
                                             style={[styles.innerImage]}
-                                            src={`http://54.226.145.28:3000/public/image/users/${finding?.img}`}
+                                            src={`http://3.86.47.176:3000/public/image/users/${finding?.img}`}
                                         />
                                     ))
 

@@ -174,7 +174,7 @@ const Floorplanlayout = () => {
 
 
       try {
-        const response = await axios.post("http://54.226.145.28:3000/api/v1/floorplan", formData, {
+        const response = await axios.post("http://3.86.47.176:3000/api/v1/floorplan", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
