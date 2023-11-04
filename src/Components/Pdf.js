@@ -172,8 +172,9 @@ function Pdf(props) {
                                     {finding?.img?.map((item, index) => (
 
                                         <Image
-                                            style={[styles.innerImage]}
-                                            src={`http://3.86.47.176:3000/public/image/users/${finding?.img}`}
+                                        key={index}
+                                            style={styles.innerImage}
+                                            src={`http://3.86.47.176:3000/public/image/users/${item}`}
                                         />
                                     ))
 
