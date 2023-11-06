@@ -10,6 +10,7 @@ import {
 } from "@react-pdf/renderer";
 
 import logo from "../Images/logo.png"
+import { apiConfig } from "../url";
 
 const styles = StyleSheet.create({
     page: {
@@ -29,10 +30,10 @@ const styles = StyleSheet.create({
         // padding: 7
     },
     tableRow: {
-        borderTop: "1px solid #000", // Add a border to the table rows
-        borderRight: "1px solid #000", // Add a border to the table rows
-        borderLeft: "1px solid #000", // Add a border to the table rows
-        borderBottom: "1px solid #000", // Add a border to the table rows
+        borderTop: "1px solid #000", 
+        borderRight: "1px solid #000", 
+        borderLeft: "1px solid #000", 
+        borderBottom: "1px solid #000", 
         // borderRadius: "1px",
         flexDirection: "row",
         margin: "0px",
@@ -46,15 +47,14 @@ const styles = StyleSheet.create({
         fontSize: 12,
         // height: "50px",
         textAlign: "center",
-        borderRight: "1px solid #000", // Add a right border to the table cells
+        borderRight: "1px solid #000",
     },
     tableCellUpper: {
         flex: 1,
         width: "25%",
         padding: 7,
-        // marginBottom: 5,
         fontSize: 12,
-        borderRight: "1px solid #000", // Add a right border to the table cells
+        borderRight: "1px solid #000",
 
     },
     headerCell: {
@@ -145,7 +145,7 @@ function Pdf(props) {
                                 : ""}</Text>
                         </View>
                     </View>
-                    <Image style={styles.image} src={`http://3.86.47.176:3000/public/image/users/${props.data?.mainImage}`} />
+                    <Image style={styles.image} src={`${apiConfig.url}/public/image/users/${props.data?.mainImage}`} />
                 </Page>
 
                 {/* Start a new page */}
@@ -174,13 +174,11 @@ function Pdf(props) {
                                         <Image
                                         key={index}
                                             style={styles.innerImage}
-                                            src={`http://3.86.47.176:3000/public/image/users/${item}`}
+                                            src={`${apiConfig.url}/public/image/users/${item}`}
                                         />
                                     ))
-
                                     }
                                 </View>
-
                             </View>
                         ))}
                     </View>

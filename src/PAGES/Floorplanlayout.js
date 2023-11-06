@@ -20,6 +20,7 @@ import AddIcon from "@mui/icons-material/Add";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { apiConfig } from "../url";
 
 
 
@@ -174,7 +175,7 @@ const Floorplanlayout = () => {
 
 
       try {
-        const response = await axios.post("http://3.86.47.176:3000/api/v1/floorplan", formData, {
+        const response = await axios.post(`${apiConfig.url}/api/v1/floorplan`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
