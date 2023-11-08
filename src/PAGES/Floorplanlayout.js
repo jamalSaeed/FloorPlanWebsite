@@ -25,15 +25,22 @@ import { apiConfig } from "../url";
 
 
 const Floorplanlayout = () => {
-  const [options, setOptions] = useState([
-
+  const options = [
+    { value: "", label: "" },
     { value: "Main door", label: "Main door" },
     { value: "Living Room", label: "Living Room" },
     { value: "Bed room", label: "Bed room" },
     { value: "Bath", label: "Bath" },
     { value: "Kitchen", label: "Kitchen" },
     { value: "Yard", label: "Yard" },
-  ]);
+  ];
+
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      width: 200, // Adjust the width as needed
+    }),
+  };
 
   const [errors, setErrors] = useState({});
 
@@ -428,6 +435,7 @@ const Floorplanlayout = () => {
                       updatedLocationArr[index] = selectedLocation.value;
                       setLocationArr(updatedLocationArr);
                     }}
+                    locationStyle={customStyles}
 
                     updateImgArr={(destIndex, imgFiles) => {
                       const updatedMainImgArr = [...mainImgArr];
@@ -510,7 +518,7 @@ const Destription = (props) => {
             Location
           </label>
           <Select
-          
+          styles={props.locationStyle}
             options={props.locationOptions}
             value={selectedLocation}
             onChange={(selectedOption) => {

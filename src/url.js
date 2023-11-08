@@ -1,4 +1,3 @@
 export const apiConfig = {
-    url: "http://3.86.47.176:3000",
-    
+    url: "http://47.128.77.247:3000",
   };
