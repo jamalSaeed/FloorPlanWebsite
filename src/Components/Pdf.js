@@ -44,6 +44,42 @@ const styles = StyleSheet.create({
         textAlign: "center",
         borderRight: "1px solid #000",
     },
+    tableCellSN: {
+        width: '10%',
+        height: "100%",
+        paddingTop: 7,
+        paddingLeft: 2,
+        fontSize: 12,
+        textAlign: "center",
+        borderRight: "1px solid #000",
+    },
+    tableCellLocation: {
+        width: '18%',
+        height: "100%",
+        paddingTop: 7,
+        paddingLeft: 2,
+        fontSize: 12,
+        textAlign: "center",
+        borderRight: "1px solid #000",
+    },
+    tableCellPhoto: {
+        width: '50%',
+        height: "100%",
+        paddingTop: 7,
+        paddingLeft: 2,
+        fontSize: 12,
+        textAlign: "center",
+        borderRight: "1px solid #000",
+    },
+    tableCellDescription: {
+        width: '22%',
+        height: "100%",
+        paddingTop: 7,
+        paddingLeft: 2,
+        fontSize: 12,
+        textAlign: "center",
+        borderRight: "1px solid #000",
+    },
     tableCellUpper: {
         flex: 1,
         width: "25%",
@@ -85,10 +121,10 @@ const styles = StyleSheet.create({
         textDecoration: "underline",
     },
     innerImage: {
-        height: "100px",
-        width: "100px",
+        height: "160px",
+        width: "200px",
         borderRadius: "2px",
-        margin: "8px",
+        margin: "5px",
     },
     pageBreak: {
         flexBasis: "100%",
@@ -99,6 +135,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
 
     },
+
 });
 
 function Pdf(props) {
@@ -148,19 +185,19 @@ function Pdf(props) {
                     <Text style={styles.header}>Inspection Findings Table</Text>
                     <View style={styles.tableContainer}>
                         <View style={[styles.tableRow, styles.headerCell]}>
-                            <Text style={styles.tableCell}>S/N</Text>
-                            <Text style={styles.tableCell}>Location</Text>
-                            <Text style={styles.tableCell}>Description</Text>
-                            <Text style={styles.tableCell}>Photo</Text>
+                            <Text style={styles.tableCellSN}>S/N</Text>
+                            <Text style={styles.tableCellLocation}>Location</Text>
+                            <Text style={styles.tableCellDescription}>Description</Text>
+                            <Text style={styles.tableCellPhoto}>Photo</Text>
                         </View>
                         {props.data?.floorDetails?.map((finding, index) => (
                             <View wrap style={styles.tableRow} key={index}>
-                                <Text style={styles.tableCell}>{index}</Text>
+                                <Text style={styles.tableCellSN}>{index + 1}</Text>
 
-                                <Text style={styles.tableCell}>{finding?.location}</Text>
+                                <Text style={styles.tableCellLocation}>{finding?.location}</Text>
 
 
-                                <Text style={styles.tableCell}>
+                                <Text style={styles.tableCellDescription}>
                                     {finding?.description}
                                 </Text>
                                 <View style={{ display: "flex", flexDirection: "column", gap: "10px", justifyContent: "center", alignItems: "center", width: "auto" }}>

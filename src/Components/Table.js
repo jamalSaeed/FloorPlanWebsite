@@ -7,12 +7,6 @@ import Pdf from './Pdf';
 import Nav from './Nav/Nav';
 import { apiConfig } from '../url';
 
-
-
-
-
-
-
 export default function Table() {
 
 
@@ -31,7 +25,12 @@ setCurrData(foundElement)
 
 
   const columns = [
-    { field: '_id', headerName: 'ID', width: 90 },
+    {
+      field: "id",
+      headerName: "ID",
+
+      width: 90,
+    },
     {
       field: 'name',
       headerName: 'Name',
@@ -169,7 +168,7 @@ setCurrData(foundElement)
         <Box sx={{ height: '90%', width: '100%' }}>
           <DataGrid
             slots={{ toolbar: GridToolbar }}
-            rows={floorData}
+            rows={floorData.map((item,index)=>{return {id:index+1,...item}})}
             getRowId={(row) => row._id}
             columns={columns}
             initialState={{
